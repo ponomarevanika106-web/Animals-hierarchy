@@ -1,4 +1,4 @@
-// Базовий клас Animals
+// ================= Базовий клас Animals =================
 class Animals {
     static maxAge = 200;
     static maxWeight = 5000;
@@ -22,12 +22,13 @@ class Animals {
         console.log(`${this.name} eats food.`);
     }
 
-    static isAnimals() {
-        return true;
+    // Перевірка типу
+    static isAnimals(obj) {
+        return obj instanceof Animals;
     }
 }
 
-// ---------------- Mammals ----------------
+// ================= Mammals =================
 class Mammals extends Animals {
     static maxAge = 120;
     static maxWeight = 10000;
@@ -36,12 +37,12 @@ class Mammals extends Animals {
         super(age, name, weight, limbAmount);
     }
 
-    static isMammals() {
-        return true;
+    static isMammals(obj) {
+        return obj instanceof Mammals;
     }
 }
 
-// ---------------- Birds ----------------
+// ================= Birds =================
 class Birds extends Animals {
     static maxAge = 80;
     static maxWeight = 50;
@@ -62,12 +63,12 @@ class Birds extends Animals {
         console.log(`${this.name} pecks seeds.`);
     }
 
-    static isBirds() {
-        return true;
+    static isBirds(obj) {
+        return obj instanceof Birds;
     }
 }
 
-// ---------------- Fish ----------------
+// ================= Fish =================
 class Fish extends Animals {
     static maxAge = 100;
     static maxWeight = 2000;
@@ -88,12 +89,12 @@ class Fish extends Animals {
         console.log(`${this.name} eats algae.`);
     }
 
-    static isFish() {
-        return true;
+    static isFish(obj) {
+        return obj instanceof Fish;
     }
 }
 
-// ---------------- Predators ----------------
+// ================= Predators =================
 class Predators extends Mammals {
     static maxAge = 50;
     static maxWeight = 400;
@@ -102,12 +103,12 @@ class Predators extends Mammals {
         super(age, name, weight, limbAmount);
     }
 
-    static isPredators() {
-        return true;
+    static isPredators(obj) {
+        return obj instanceof Predators;
     }
 }
 
-// ---------------- Whales ----------------
+// ================= Whales =================
 class Whales extends Mammals {
     static maxAge = 150;
     static maxWeight = 30000;
@@ -116,12 +117,12 @@ class Whales extends Mammals {
         super(age, name, weight, limbAmount);
     }
 
-    static isWhales() {
-        return true;
+    static isWhales(obj) {
+        return obj instanceof Whales;
     }
 }
 
-// ---------------- Primates ----------------
+// ================= Primates =================
 class Primates extends Mammals {
     static maxAge = 90;
     static maxWeight = 250;
@@ -130,12 +131,12 @@ class Primates extends Mammals {
         super(age, name, weight, limbAmount);
     }
 
-    static isPrimates() {
-        return true;
+    static isPrimates(obj) {
+        return obj instanceof Primates;
     }
 }
 
-// ---------------- Dog ----------------
+// ================= Dog =================
 class Dog extends Predators {
     static maxAge = 20;
     static maxWeight = 100;
@@ -156,12 +157,12 @@ class Dog extends Predators {
         console.log(`${this.name} eats meat.`);
     }
 
-    static isDog() {
-        return true;
+    static isDog(obj) {
+        return obj instanceof Dog;
     }
 }
 
-// ---------------- Dolphin ----------------
+// ================= Dolphin =================
 class Dolphin extends Whales {
     static maxAge = 40;
     static maxWeight = 300;
@@ -182,12 +183,12 @@ class Dolphin extends Whales {
         console.log(`${this.name} eats fish.`);
     }
 
-    static isDolphin() {
-        return true;
+    static isDolphin(obj) {
+        return obj instanceof Dolphin;
     }
 }
 
-// ---------------- Human ----------------
+// ================= Human =================
 class Human extends Primates {
     static maxAge = 120;
     static maxWeight = 250;
@@ -208,12 +209,12 @@ class Human extends Primates {
         console.log(`${this.name} eats different food.`);
     }
 
-    static isHuman() {
-        return true;
+    static isHuman(obj) {
+        return obj instanceof Human;
     }
 }
 
-// ---------------- Створення об'єктів ----------------
+// ================= Створення об'єктів =================
 
 // Birds
 const bird1 = new Birds(2, "Sparrow", 0.2, 2);
@@ -235,7 +236,7 @@ const dolphin2 = new Dolphin(8, "Blue", 170);
 const human1 = new Human(20, "Alex", 70);
 const human2 = new Human(30, "Maria", 60);
 
-// ---------------- Тестування ----------------
+// ================= Масив тварин =================
 
 const animals = [
     bird1, bird2,
@@ -244,6 +245,8 @@ const animals = [
     dolphin1, dolphin2,
     human1, human2
 ];
+
+// ================= Тестування методів =================
 
 animals.forEach(animal => {
     console.log("---------------");
@@ -257,13 +260,41 @@ animals.forEach(animal => {
     animal.eat();
 });
 
-// ---------------- Статичні методи ----------------
+// ================= Перевірка типів =================
 
-console.log(Dog.isDog());
-console.log(Human.isHuman());
-console.log(Fish.isFish());
+console.log("---------------");
+console.log("Type проверки:");
 
-// ---------------- Статичні поля ----------------
+console.log(Dog.isDog(dog1)); // true
+console.log(Dog.isDog(fish1)); // false
 
-console.log(Dog.maxAge);
-console.log(Human.maxWeight);
+console.log(Human.isHuman(human1)); // true
+console.log(Human.isHuman(dog1)); // false
+
+console.log(Fish.isFish(fish2)); // true
+console.log(Fish.isFish(bird1)); // false
+
+console.log(Animals.isAnimals(dolphin1)); // true
+
+// ================= Перевірка instanceof =================
+
+console.log("---------------");
+console.log("instanceof:");
+
+console.log(dog1 instanceof Dog); // true
+console.log(dog1 instanceof Mammals); // true
+console.log(dog1 instanceof Animals); // true
+
+console.log(human1 instanceof Primates); // true
+console.log(dolphin1 instanceof Whales); // true
+
+console.log(fish1 instanceof Mammals); // false
+
+// ================= Статичні поля =================
+
+console.log("---------------");
+console.log("Static fields:");
+
+console.log("Dog max age:", Dog.maxAge);
+console.log("Human max weight:", Human.maxWeight);
+console.log("Fish max age:", Fish.maxAge);
